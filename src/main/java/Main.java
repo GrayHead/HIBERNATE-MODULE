@@ -1,4 +1,5 @@
 import models.Gender;
+import models.Passport;
 import models.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -20,9 +21,9 @@ public class Main {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-//        session.save(new User("petya", Gender.MALE, Arrays.asList("java","js","html")));
-//        session.save(new User("vasya", Gender.MALE,Arrays.asList("java SE","mongo","js")));
-//        session.save(new User("olya", Gender.FEMALE,Arrays.asList("java","js","html")));
+        session.save(new User("petya", Gender.MALE, Arrays.asList("java","js","html"),new Passport("pihfigdfgsdf")));
+        session.save(new User("vasya", Gender.MALE,Arrays.asList("java SE","mongo","js"),new Passport("phvsgdie")));
+        session.save(new User("olya", Gender.FEMALE,Arrays.asList("java","js","html"),new Passport("dshfigfsd")));
 
 
         session.getTransaction().commit();

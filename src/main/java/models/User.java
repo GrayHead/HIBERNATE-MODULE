@@ -21,9 +21,13 @@ public class User implements Serializable {
     private String name;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-
     @ElementCollection
     private List<String> skills;
+
+    @OneToOne(cascade = {CascadeType.ALL},fetch = FetchType.LAZY)
+    @JoinColumn(name = "passport_id" , referencedColumnName = "id")
+    private Passport passport;
+
 
     public User(String name) {
         this.name = name;
@@ -38,5 +42,12 @@ public class User implements Serializable {
         this.name = name;
         this.gender = gender;
         this.skills = skills;
+    }
+
+    public User(String name, Gender gender, List<String> skills, Passport passport) {
+        this.name = name;
+        this.gender = gender;
+        this.skills = skills;
+        this.passport = passport;
     }
 }
