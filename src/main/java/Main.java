@@ -15,7 +15,10 @@ public class Main {
 
         StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
 
-        Metadata metadata = new MetadataSources(serviceRegistry).addAnnotatedClass(User.class).getMetadataBuilder().build();
+        Metadata metadata = new MetadataSources(serviceRegistry)
+                .addAnnotatedClass(User.class)
+                .addAnnotatedClass(Passport.class)
+                .getMetadataBuilder().build();
 
         SessionFactory sessionFactory = metadata.getSessionFactoryBuilder().build();
         Session session = sessionFactory.openSession();
