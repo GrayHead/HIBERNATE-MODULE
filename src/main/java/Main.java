@@ -39,8 +39,11 @@ public class Main {
 //        List<Passport> passports = session.createQuery("select u.passport from User u", Passport.class).getResultList();
 //        System.out.println(passports);
 
-//        session.createQuery("select p.user from Passport p join p.user ",User.class).getResultList().forEach(user -> System.out.println(user));
-        session.createQuery("select p from Passport p join fetch p.user u where p.id=u.id ",Passport.class).getResultList().forEach(passport -> System.out.println(passport.getUser()));
+//        session.createQuery("select p.user from Passport p ",User.class).getResultList().forEach(user -> System.out.println(user));
+
+        session.createQuery("select p from Passport p join fetch p.user",Passport.class)
+                        .getResultList()
+                                .forEach(passport -> System.out.println(passport.getUser()));
 
 
 
