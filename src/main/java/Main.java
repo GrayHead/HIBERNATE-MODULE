@@ -41,11 +41,12 @@ public class Main {
 
 //        session.createQuery("select p.user from Passport p ",User.class).getResultList().forEach(user -> System.out.println(user));
 
-        session.createQuery("select p from Passport p join fetch p.user",Passport.class)
-                        .getResultList()
-                                .forEach(passport -> System.out.println(passport.getUser()));
+        List<Passport> passports = session.createQuery("select p from Passport p  join fetch p.user u where p.id=u.id", Passport.class).getResultList();
 
 
+        for (Passport passport : passports) {
+            System.out.println(passport.getUser().getName());
+        }
 
         session.close();
         sessionFactory.close();
