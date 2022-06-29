@@ -29,24 +29,10 @@ public class Main {
         session.save(new User("vasya", Gender.MALE,Arrays.asList("java SE","mongo","js"),new Passport("phvsgdie")));
         session.save(new User("olya", Gender.FEMALE,Arrays.asList("java","js","html"),new Passport("dshfigfsd")));
 
-
         session.getTransaction().commit();
 
-//        List<User> users = session.createQuery("select u from User u", User.class).getResultList();
-//        users.forEach(System.out::println);
-//        users.forEach(user -> System.out.println(user.getPassport()));
 
-//        List<Passport> passports = session.createQuery("select u.passport from User u", Passport.class).getResultList();
-//        System.out.println(passports);
-
-//        session.createQuery("select p.user from Passport p ",User.class).getResultList().forEach(user -> System.out.println(user));
-
-        List<Passport> passports = session.createQuery("select p from Passport p  join fetch p.user u where p.id=u.id", Passport.class).getResultList();
-
-
-        for (Passport passport : passports) {
-            System.out.println(passport.getUser().getName());
-        }
+        session.createQuery("select p.user from  Passport p",User.class).getResultList().forEach(user -> System.out.println(user));
 
         session.close();
         sessionFactory.close();

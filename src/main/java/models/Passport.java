@@ -18,8 +18,9 @@ public class Passport implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String series;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "passport")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "passport" )
     private User user;
+
 
     public Passport(String series) {
         this.series = series;
