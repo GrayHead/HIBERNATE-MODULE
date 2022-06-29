@@ -1,3 +1,4 @@
+import models.Card;
 import models.Gender;
 import models.Passport;
 import models.User;
@@ -16,23 +17,28 @@ public class Main {
 
         StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
 
-        Metadata metadata = new MetadataSources(serviceRegistry)
-                .addAnnotatedClass(User.class)
-                .addAnnotatedClass(Passport.class)
-                .getMetadataBuilder().build();
+        Metadata metadata = new MetadataSources(serviceRegistry).addAnnotatedClass(User.class).addAnnotatedClass(Passport.class).addAnnotatedClass(Card.class).getMetadataBuilder().build();
 
         SessionFactory sessionFactory = metadata.getSessionFactoryBuilder().build();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        session.save(new User("petya", Gender.MALE, Arrays.asList("java","js","html"),new Passport("pihfigdfgsdf")));
-        session.save(new User("vasya", Gender.MALE,Arrays.asList("java SE","mongo","js"),new Passport("phvsgdie")));
-        session.save(new User("olya", Gender.FEMALE,Arrays.asList("java","js","html"),new Passport("dshfigfsd")));
+//        session.save(new User("petya", Gender.MALE, Arrays.asList("java", "js", "html"), new Passport("pihfigdfgsdf")));
+//        session.save(new User("vasya", Gender.MALE, Arrays.asList("java SE", "mongo", "js"), new Passport("phvsgdie")));
+        User user = new User("olya", Gender.FEMALE, Arrays.asList("java", "js", "html"), new Passport("dshfigfsd"));
+        System.out.println(user);
+        session.save(user);
+        System.out.println(user);
+
+        Card card = new Card("7615634127357", user);
+        session.save(card);
 
         session.getTransaction().commit();
 
 
-        session.createQuery("select p.user from  Passport p",User.class).getResultList().forEach(user -> System.out.println(user));
+        session.createQuery("select c from Card c",Card.class).getResultList()
+                        .forEach(card1 -> System.out.println(card1.getUser().getName()));
+
 
         session.close();
         sessionFactory.close();
