@@ -20,9 +20,9 @@ public class Main {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        session.save(new User("petya", Gender.MALE, Arrays.asList("java","js","html")));
-        session.save(new User("vasya", Gender.MALE,Arrays.asList("java SE","mongo","js")));
-        session.save(new User("olya", Gender.FEMALE,Arrays.asList("java","js","html")));
+//        session.save(new User("petya", Gender.MALE, Arrays.asList("java","js","html")));
+//        session.save(new User("vasya", Gender.MALE,Arrays.asList("java SE","mongo","js")));
+//        session.save(new User("olya", Gender.FEMALE,Arrays.asList("java","js","html")));
 
 
         session.getTransaction().commit();
