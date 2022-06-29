@@ -9,6 +9,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -30,6 +31,15 @@ public class Main {
 
 
         session.getTransaction().commit();
+
+//        List<User> users = session.createQuery("select u from User u", User.class).getResultList();
+//        users.forEach(System.out::println);
+//        users.forEach(user -> System.out.println(user.getPassport()));
+
+        List<Passport> passports = session.createQuery("select u.passport from User u", Passport.class).getResultList();
+
+        System.out.println(passports);
+
         session.close();
         sessionFactory.close();
 
