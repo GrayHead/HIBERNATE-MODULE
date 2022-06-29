@@ -10,7 +10,10 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -39,6 +42,10 @@ public class Main {
                         .getResultList()
                                 .forEach(user -> System.out.println(user.getCards().get(0).getNumber()));
 
+        Set<User> collect = new HashSet<>(session.createQuery("select c.user from Card c", User.class)
+                .getResultList());
+
+        System.out.println(collect);
 
 
         session.close();
