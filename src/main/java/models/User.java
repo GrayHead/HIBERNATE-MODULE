@@ -28,6 +28,14 @@ public class User implements Serializable {
     @JoinColumn(name = "passport_id" , referencedColumnName = "id")
     private Passport passport;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "user_card",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "card_id")
+    )
+    private List<Card> cards;
+
 
     public User(String name) {
         this.name = name;
@@ -49,5 +57,13 @@ public class User implements Serializable {
         this.gender = gender;
         this.skills = skills;
         this.passport = passport;
+    }
+
+    public User(String name, Gender gender, List<String> skills, Passport passport, List<Card> cards) {
+        this.name = name;
+        this.gender = gender;
+        this.skills = skills;
+        this.passport = passport;
+        this.cards = cards;
     }
 }

@@ -1,3 +1,4 @@
+import models.Card;
 import models.Gender;
 import models.Passport;
 import models.User;
@@ -19,20 +20,26 @@ public class Main {
         Metadata metadata = new MetadataSources(serviceRegistry)
                 .addAnnotatedClass(User.class)
                 .addAnnotatedClass(Passport.class)
+                .addAnnotatedClass(Card.class)
                 .getMetadataBuilder().build();
 
         SessionFactory sessionFactory = metadata.getSessionFactoryBuilder().build();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        session.save(new User("petya", Gender.MALE, Arrays.asList("java","js","html"),new Passport("pihfigdfgsdf")));
-        session.save(new User("vasya", Gender.MALE,Arrays.asList("java SE","mongo","js"),new Passport("phvsgdie")));
-        session.save(new User("olya", Gender.FEMALE,Arrays.asList("java","js","html"),new Passport("dshfigfsd")));
+        session.save(new User("petya",
+                Gender.MALE, Arrays.asList("java", "js", "html"),
+                new Passport("pihfigdfgsdf"),
+                Arrays.asList(new Card("asyfdyqtfwe7765347"), new Card("87542627"))
+        ));
 
         session.getTransaction().commit();
 
+        session.createQuery("select u from User u",User.class)
+                        .getResultList()
+                                .forEach(user -> System.out.println(user.getCards().get(0).getNumber()));
 
-        session.createQuery("select p.user from  Passport p",User.class).getResultList().forEach(user -> System.out.println(user));
+
 
         session.close();
         sessionFactory.close();
